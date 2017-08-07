@@ -3,20 +3,27 @@
 var mongoose = require('mongoose'),
   Trees = mongoose.model('Trees');
 
-exports.list_all_trees = function(req, res) {
-  Trees.find({}, function(err, tree) {
-    if (err)
-      res.send(err);
-    res.json(tree);
-  });
+exports.list_all_trees = function (req, res) {
+  Trees.find({})
+    .limit(500)
+    .exec( function (err, tree) {
+      if (err)
+        res.send(err);
+      // console.log(tree);
+      res.json(tree);
+    });
 };
 
-exports.by_treetype = function(req, res) {
+exports.by_treetype = function (req, res) {
   console.log(req.params.tradslag);
-  
-  Trees.find({"properties.Tradslag": req.params.tradslag}, function(err, tree) {
+
+  let responseObj = {};
+
+  Trees.find({ "properties.Tradslag": req.params.tradslag }, function (err, tree) {
     if (err)
       res.send(err);
+    // responseObj.trees = tree;
+    // responseObj.count = responseObj.trees.count
     res.json(tree);
   });
 };
@@ -31,7 +38,7 @@ exports.by_treetype = function(req, res) {
 //      }
 //    }
 // )
-    
+
 //     req.params.within, function(err, task) {
 //     if (err)
 //       res.send(err);

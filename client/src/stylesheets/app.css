@@ -1,0 +1,185 @@
+html, body, #container {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Verdana, Geneva, sans-serif
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+select {
+  font-family: Verdana, Geneva, sans-serif;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  background-color: #3b8ec2;
+  color: #fff;
+  border: 1px solid #ccc;
+}
+
+select {
+  font-size: 16px;
+}
+
+.info-sidebar-text{
+  color:#3b8ec2;
+}
+
+.info-sidebar-text a {
+  color: black;
+}
+
+#locateBtn, #findTreesBtn, #searchVisibleBtn {
+  background-color: #3b8ec2;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.legend {
+  padding: 6px 8px;
+  /*font: 14px/16px Arial, Helvetica, sans-serif;*/
+  background: white;
+  background: rgba(255, 255, 255);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  line-height: 18px;
+  color: #555;
+}
+
+.legend h4 {
+  margin: 0 0 5px;
+  color: #777;
+}
+
+.legend i {
+  /*width: 30px;
+    height: 18px;*/
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
+
+
+/*(min-width: 320px) and*/
+
+@media (max-width: 768px) {
+  .legend.leaflet-control {
+    margin-left: 0px;
+    margin-bottom: 0px;
+    padding-right: 2px;
+    padding-left: 0px;
+    /*font: 12px/14px Arial, Helvetica, sans-serif; */
+    font: 12px/14px Verdana, Geneva, sans-serif;
+  }
+  .legend i {
+    width: 13px;
+    height: 13px;
+    margin-right: 4px;
+  }
+  .attribution-tab {
+    display: visible;
+  }
+  .leaflet-control-attribution.leaflet-control {
+    display: none;
+  }
+  .leaflet-control-layers.leaflet-control, .leaflet-control-zoom.leaflet-bar.leaflet-control {
+    margin-left: 0px;
+    margin-top: 0px;
+  }
+}
+
+@media (min-width: 768px) {
+  .legend.leaflet-control {
+    /*font: 14px/18px Arial, Helvetica, sans-serif; */
+    font: 14px/18px Verdana, Geneva, sans-serif;
+  }
+  .legend i {
+    width: 30px;
+    height: 18px;
+  }
+  .attribution-tab {
+    display: none;
+  }
+  .leaflet-control-attribution.leaflet-control {
+    display: block;
+    margin-right: 10px;
+  }
+}
+
+
+/*OLD NEED TO DELETE*/
+
+/*#panel {
+  width:25%;
+  height:100%;  
+}*/
+
+
+/*.legend {
+    line-height: 18px;
+    color: #555;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}*/
+
+
+/*Sidebar*/
+
+
+/*@media (min-width: 768px) and (max-width: 991px) {
+    .sidebar {
+      width: 205px; } }
+  @media (min-width: 992px) and (max-width: 1199px) {
+    .sidebar {
+      width: 290px; } }
+  @media (min-width: 1200px) {
+    .sidebar {
+      width: 360px; } }*/
+
+
+/*.sidebar-pane {
+  display: none;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 10px 20px; }
+  .sidebar-pane.active {
+    display: block; }
+  @media (min-width: 768px) and (max-width: 991px) {
+    .sidebar-pane {
+      min-width: 265px; } }
+  @media (min-width: 992px) and (max-width: 1199px) {
+    .sidebar-pane {
+      min-width: 350px; } }
+  @media (min-width: 1200px) {
+    .sidebar-pane {
+      min-width: 420px; } }*/

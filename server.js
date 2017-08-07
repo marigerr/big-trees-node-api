@@ -4,6 +4,7 @@ var express = require('express'),
   mongoose = require('mongoose'),
   Trees = require('./api/models/bigTreesModel'),
   bodyParser = require('body-parser');
+const cors = require('cors');
   
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/bigtreeshabo'); 
@@ -11,6 +12,7 @@ mongoose.connect('mongodb://localhost/bigtreeshabo');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 // app.use(function(req, res) {
 //   res.status(404).send({url: req.originalUrl + ' not found'})
 // });

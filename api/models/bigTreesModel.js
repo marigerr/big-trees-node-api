@@ -17,11 +17,11 @@ var TreeSchema = new Schema({
     Tradstatus: String,
     Tradfamilj: String,
   },
-  bbox: [Number, Number, Number, Number],
   geometry: {
-    type: String,
-    coordinates: [Number, Number]
-  }
+    type: {type: String},
+    coordinates: []
+  },
+  bbox: [Number, Number, Number, Number]
 });
 
 module.exports = mongoose.model('Trees', TreeSchema);
