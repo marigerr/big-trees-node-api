@@ -3,7 +3,7 @@ import getWhereCondition from 'Data/getWhereCond';
 import makeAjaxCall from 'Data/makeAjaxCall';
 import lanstyrDefault from 'Data/lanstyrDefault';
 import { createSelect } from 'Sidebar/select';
-import { updateLegend } from 'Map/map';
+// import { updateLegend } from 'Map/map';
 
 function trees() {
   return [{ family: 'zzzz', matchWith: /XXXXX/i, id: 'Alla', querytext: 'Tradslag is not null', label: 'Alla', color: '' },
@@ -49,11 +49,12 @@ function trees() {
 function getTreetypeQueryText(treetypeSelection) {
   const treeArray = trees();
   let queryText;
-  $.each(treeArray, (index, value) => {
-    if (treeArray[index].id == treetypeSelection) {
+  $.each(treeArray, (index) => {
+    if (treeArray[index].id === treetypeSelection) {
       queryText = `(${treeArray[index].querytext})`;
       return false;
     }
+    return true;
   });
   return queryText;
 }
@@ -81,8 +82,7 @@ function getTreesSuccess(response) { // getCircumferenceRangeSuccess;
     filteredTrees.push(value.attributes.Tradslag);
   });
 
-  let finalFilteredTrees;
-  finalFilteredTrees = removeDuplicateTrees(filteredTrees);
+  const finalFilteredTrees = removeDuplicateTrees(filteredTrees);
 
   createSelect('.filterSelect.treetype-select', finalFilteredTrees);
   // updateLegend(finalFilteredTrees);
@@ -92,8 +92,9 @@ function removeDuplicateTrees(treeArray) {
   const masterTreeListArray = trees();
 
   const finalFilteredTrees = [];
-  let i,
-    j;
+  let i;
+  let j;
+
   for (i = 0; i < treeArray.length; i += 1) {
     for (j = 0; j < masterTreeListArray.length; j += 1) {
       // if(trees[j].matchWith.test(treeArray[i])){
@@ -103,13 +104,14 @@ function removeDuplicateTrees(treeArray) {
       }
     }
   }
+  // eslint-disable-next-line
   finalFilteredTrees.sort((a, b) => ((a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0)));
 
   // delete all duplicates from the array
   for (i = 0; i < finalFilteredTrees.length - 1; i += 1) {
-    if (finalFilteredTrees[i].id == finalFilteredTrees[i + 1].id) {
+    if (finalFilteredTrees[i].id === finalFilteredTrees[i + 1].id) {
       finalFilteredTrees.splice(i, 1);
-      i--;
+      i -= 1;
     }
   }
   finalFilteredTrees.unshift({ family: 'zzzz', matchWith: /XXXXX/i, id: 'Alla', querytext: 'Tradslag is not null', label: 'Alla' });

@@ -2,7 +2,7 @@
 import makeAjaxCall from 'Data/makeAjaxCall';
 import lanstyrDefault from 'Data/lanstyrDefault';
 import { map, sidebar } from 'Map/map';
-import { getPoints, getPointsSuccess } from 'Data/getPoints';
+import { getPointsSuccess } from 'Data/getPoints';
 import { buildTable, addRowClickHandler } from 'Sidebar/createTable';
 import { isMobile } from 'App/app';
 
@@ -49,7 +49,7 @@ function findLocationWithGoogleGeolocation() {
   let data;
   const datatype = 'json';
   const async = true;
-  const success = function (response) {
+  success = (response) => {
     // console.log(response);
     const lat = response.location.lat;
     const lng = response.location.lng;
@@ -63,17 +63,17 @@ function findLocationWithGoogleGeolocation() {
       sidebar.close();
       console.log(isMobile);
     }
-  };
-  const error = function (xhr) {
+  }
+  error = (xhr) => {
     console.log(xhr.statusText);
-  };
+  }
 
   makeAjaxCall(url, data, type, datatype, async, success, error);
 }
 
 function getSearchArea(lat, lng) {
-  // use leaflet toBounds  toBounds(<Number> sizeInMeters)	LatLngBounds	
-  // Returns a new LatLngBounds object in which each boundary is sizeInMeters/2 meters apart from the LatLng.
+// use leaflet toBounds  toBounds(<Number> sizeInMeters)	LatLngBounds	
+// Returns a new LatLngBounds object in which each boundary is sizeInMeters/2 meters apart from the LatLng.
   return L.latLng(lat, lng).toBounds(4000).toBBoxString(); // search area 4000 meters
 }
 
@@ -81,13 +81,13 @@ function findNearTrees(searchEnvelope, mapViewPoint, keepZoomLevel) {
   const defaults = lanstyrDefault();
   let success;
   if (mapViewPoint) {
-    success = function (response) {
-      getPointsSuccess(response, mapViewPoint, 16);
+    success = (response) => {
+      getPointsSuccess(response, mapViewPoint, 1);
       buildTable('.tree-table', response, true);
       addRowClickHandler();
     };
   } else {
-    success = function (response) {
+    success = (response) => {
       getPointsSuccess(response, null, null, keepZoomLevel);
       buildTable('.tree-table', response, true);
       addRowClickHandler();
@@ -111,7 +111,7 @@ function removeLocationMarker() {
 function createLocationMarker(lat, lng, accuracy) {
   locationMarker = L.marker([lat, lng]).addTo(map);
   let popupContent = '';
-  popupContent += 'Your location' + '</br>';
+  popupContent += 'Your location</br>';
   popupContent += `Accuracy: ${Math.round(accuracy)} meters</br>`;
   locationMarker.bindPopup(popupContent, { autoPanPaddingTopLeft: [65, 5], autoPanPaddingBottomRight: [45, 5] }); // .openPopup();
 }
