@@ -2,143 +2,136 @@
 <html>
 
 <head>
-	<title>Skyddsvärda Träd</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
-	 crossorigin="" />
-	<link rel="shortcut icon" href="favicon.ico" />
+  <title>Skyddsvärda Träd</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
+    crossorigin="" />
+  <link rel="shortcut icon" href="favicon.ico" />
 
 </head>
 
 <body>
-	<div id="container">		
-		<div id="sidebar" class="sidebar-right sidebar collapsed">
-			<!-- Nav tabs -->
-			<div class="sidebar-tabs">
-				<ul role="tablist">
-					<li><a href="#locate" role="tab"><i class="fa fa-location-arrow"></i></a></li>
-					<li><a href="#treePane" role="tab"><i class="fa fa-tree"></i></a></li>
-					<li><a href="#stats" role="tab"><i class="fa fa-percent"></i></a></li>
-					<li><a href="#info" role="tab"><i class="fa fa-info-circle"></i></a></li>
-					<!--<li><a href="#help" role="tab"><i class="fa fa-question"></i></a></li>-->
-					<!--<li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>-->
-					<!--<li><a href="https://github.com/username" role="tab" target="_blank"><i class="fa fa-github"></i></a></li>-->
-				</ul>
-				<!--<ul role="tablist" class="attribution-tab">
-					<li><a href="#settings" role="tab"><i class="fa fa-map"></i></a></li>
-				</ul>-->
-			</div>
-			<!-- Tab panes -->
-			<div class="sidebar-content">
-				<div class="sidebar-pane" id="treePane">
-					<h1 class="sidebar-header">
-						Skyddsvärda Träd
-						<span class="sidebar-close"><i class="fa fa-caret-right"></i></span>
-					</h1>
-					Filtrera efter kommun<br/>
-					<select class="filterSelect region-select">
-					</select>
-					<br/>Filtrera efter trädslag<br/>
-					<select class="filterSelect treetype-select">
-					</select>
-					<br/> Filtrera efter stamomkrets<br/>
-					<select class="filterSelect circumference-select">
-					</select>
-					<hr/>
-					<p class="results" style="display:none"></p>
-					<!--<button id="findTreesBtn">Find Trees</button>-->
-					<div class="tree-table-div" style="display:none">
-						<table class="tree-table"></table>
-						<button class="tableBtns prev">Förra</button>
-						<button class="tableBtns next">Nästa</button>
-					</div>
+  <div id="container">
+    <div id="sidebar" class="sidebar-right sidebar collapsed">
+      <!-- Nav tabs -->
+      <div class="sidebar-tabs">
+        <ul role="tablist">
+          <li><a href="#locate" role="tab"><i class="fa fa-location-arrow"></i></a></li>
+          <li><a href="#treePane" role="tab"><i class="fa fa-tree"></i></a></li>
+          <li><a href="#stats" role="tab"><i class="fa fa-percent"></i></a></li>
+          <li><a href="#info" role="tab"><i class="fa fa-info-circle"></i></a></li>
+          <li><a href="#user-account-sidepane" role="tab"><i class="fa fa-user-circle"></i></a></li>
 
-				</div>
+          <!--<li><a href="#help" role="tab"><i class="fa fa-question"></i></a></li>-->
+          <!--<li class="disabled"><a href="#messages" role="tab"><i class="fa fa-envelope"></i></a></li>-->
+          <!--<li><a href="https://github.com/username" role="tab" target="_blank"><i class="fa fa-github"></i></a></li>-->
+        </ul>
+      </div>
+      <div class="sidebar-content">
 
-				<div class="sidebar-pane" id="locate">
-					<h1 class="sidebar-header">Hitta träd nära dig<span class="sidebar-close"><i class="fa fa-caret-right"></i></span></h1>
-					Hitta träd nära dig på två sätt: <br>
-					<br>
-					Zoom in till ditt område och då <br>
-					<button id="searchVisibleBtn">Sök i synlig karta</button><br/>
-					<br>
-					Använd geolocation att hitta din position och nära träd <br>
-					<button id="locateBtn">Hitta träd nära min position</button><br>
-					<div class="tree-table-div" style="display:none">
-					<hr>
-					<p class="results" style="display:none"></p>					
-						<table class="tree-table"></table>
-						<button class="tableBtns prev">Förra</button>
-						<button class="tableBtns next">Nästa</button>
-					</div>					
-				</div>
-
-				<div class="sidebar-pane" id="stats">
-					<h1 class="sidebar-header">Stats<span class="sidebar-close"><i class="fa fa-caret-right"></i></span></h1>
-					Välj Statistik<br/>
-					<select class="statpaneSelect stat-select">
+        <div class="sidebar-pane" id="treePane">
+          <h1 class="sidebar-header">
+            Skyddsvärda Träd
+            <span class="sidebar-close"><i class="fa fa-caret-right"></i></span>
+          </h1>Filtrera efter trädslag<br/>
+          <select class="filterSelect treetype-select">
 					</select>
-					<div class="statpaneSelectRegionDiv">
-						Välj Kommun<br/>
-						<select class="statpaneSelect region-select">
+          <br/> Filtrera efter stamomkrets<br/>
+          <select class="filterSelect circumference-select">
+					</select>
+          <hr/>
+          <p class="results" style="display:none"></p>
+          <div class="tree-table-div" style="display:none">
+            <table class="tree-table"></table>
+            <button class="tableBtns prev">Förra</button>
+            <button class="tableBtns next">Nästa</button>
+          </div>
+        </div>
+
+        <div class="sidebar-pane" id="locate">
+          <h1 class="sidebar-header">Hitta träd nära dig<span class="sidebar-close"><i class="fa fa-caret-right"></i></span></h1>
+          <!-- Hitta träd nära dig på två sätt: <br> -->
+          <!-- <br> -->
+          Zoom in till ditt område och då <br>
+          <button id="searchVisibleBtn">Sök i synlig karta</button><br/>
+          <!-- <br> -->
+          Använd geolocation <br>
+          <button id="locateBtn">Hitta träd nära min position</button><br>
+          <div class="tree-table-div" style="display:none">
+            <hr>
+            <p class="results" style="display:none"></p>
+            <table class="tree-table"></table>
+            <button class="tableBtns prev">Förra</button>
+            <button class="tableBtns next">Nästa</button>
+          </div>
+        </div>
+
+        <div class="sidebar-pane" id="stats">
+          <h1 class="sidebar-header">Stats<span class="sidebar-close"><i class="fa fa-caret-right"></i></span></h1>
+          Välj Statistik<br/>
+          <select class="statpaneSelect stat-select">
+					</select>
+          <div class="statpaneSelectRegionDiv">
+            Välj Kommun<br/>
+            <select class="statpaneSelect region-select">
 						</select>
-					</div>
-					<div class="statpaneSelectTreeDiv">
-						Välj Tradslag<br/>
-						<select class="statpaneSelect treetype-select">
+          </div>
+          <div class="statpaneSelectTreeDiv">
+            Välj Tradslag<br/>
+            <select class="statpaneSelect treetype-select">
 						</select>
-					</div>
-					<div class="stat-table-div" style="display:none">
-						<table class="stat-table">
-						</table>
-					</div>
-				</div>
+          </div>
+          <div class="stat-table-div" style="display:none">
+            <table class="stat-table">
+            </table>
+          </div>
+        </div>
 
-				<div class="sidebar-pane" id="info">
-					<div class="info-sidebar-text">
-						<h1 class="sidebar-header">Info<span class="sidebar-close"><i class="fa fa-caret-right"></i></span></h1>
-						<h3>Träd Data</h3>
-						<h5>
-							<a href="https://ext-geodatakatalog.lansstyrelsen.se/GeodataKatalogen/GetMetaDataById?id=251f9f84-e8b4-4e76-af39-1ccb19445a8f"
-							 target="_blank">LstF Inventerade skyddsvärda träd i Jönköpings län</a>
-						</h5>
-						<hr>
-						<h3>Baskartor</h3>
-						<h4>Topo</h4>
-							<h5><a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a>
-							<a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a></h5>
-						<h4>Satellit</h4>
-							<h5><a href="https://www.arcgis.com/home/item.html?id=10df2279f9684e4a9f6a7f08febac2a9" target="_blank">Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community</a></h5>
-							<!--Imagery © <a href="http://mapbox.com">Mapbox</a>-->
-						<hr>
-						<h3>Mapping Library</h3>
-						<h5><a href="http://leafletjs.com" target="_blank" title="A JS library for interactive maps">Leaflet</a></h5>
-					</div>
-				</div>
+        <div class="sidebar-pane" id="info">
+          <h1 class="sidebar-header">Info<span class="sidebar-close"><i class="fa fa-caret-right"></i></span></h1>
+          <h3>Träd Data</h3>
+          <h5>
+            <a href="https://ext-geodatakatalog.lansstyrelsen.se/GeodataKatalogen/GetMetaDataById?id=251f9f84-e8b4-4e76-af39-1ccb19445a8f"
+              target="_blank">LstF Inventerade skyddsvärda träd i Jönköpings län</a>
+          </h5>
+          <hr>
+          <h3>Baskartor</h3>
+          <h4>Topo</h4>
+          <h5><a href="https://www.mapbox.com/about/maps/" target="_blank">Mapbox</a>
+            <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a></h5>
+          <h4>Satellit</h4>
+          <h5><a href="https://www.arcgis.com/home/item.html?id=10df2279f9684e4a9f6a7f08febac2a9" target="_blank">Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community</a></h5>
+          <hr>
+          <h3>Mapping Library</h3>
+          <h5><a href="http://leafletjs.com" target="_blank" title="A JS library for interactive maps">Leaflet</a></h5>
+        </div>
 
-				<!--<div class="sidebar-pane" id="help">
+        <div class="sidebar-pane" id="user-account-sidepane">
+          <h1 class="sidebar-header">User Account<span class="sidebar-close"><i class="fa fa-caret-right"></i></span></h1>
+        </div>
+
+        <!--<div class="sidebar-pane" id="help">
 					<div class="info-sidebar-text">
 						<h1 class="sidebar-header">Hjälp<span class="sidebar-close"><i class="fa fa-caret-right"></i></span></h1>
 						<h3>Hur man använda appen</h3>
 					</div>
 				</div>				-->
-				<!--<div class="sidebar-pane" id="settings">
+        <!--<div class="sidebar-pane" id="settings">
 					<h1 class="sidebar-header">Map Attribution<span class="sidebar-close"><i class="fa fa-caret-right"></i></span></h1>
 				</div>-->
-			</div>
-		</div>
-		<div id="map" class="sidebar-map"></div>
-		<!--
-		<button style="display: none" id="attributeBtn">See Data</button>-->
-		<!--</div>-->
-		<!--<div id="table"></div>-->
-	</div>
-	<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js" integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
-	 crossorigin=""></script>
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-	 crossorigin="anonymous"></script>
+
+      </div>
+    </div>
+    <div id="map" class="sidebar-map"></div>
+
+  </div>
+  <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js" integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
+    crossorigin=""></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
 
 </html>
