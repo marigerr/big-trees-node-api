@@ -32,7 +32,7 @@
       }
     ],
     "no-mixed-operators": [
-      "error",
+      "off",
       {
         "allowSamePrecedence": true
       }
@@ -46,7 +46,10 @@
     "import/first": "off",
     // "no-unused-vars": "off",
     "class-methods-use-this": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "import/no-mutable-exports": "off",
+    " func-names":"off"
+    
   },
   "plugins": [
     "react"

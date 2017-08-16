@@ -67,12 +67,12 @@ module.exports = {
       // uncomment block below to fix linting errors automatically,
       // then comment out 'es-lint-loader' in above code block
 
-      // {
-      //   test: /\.(js|jsx)$/,
-      //   exclude: /node_modules/,
-      //   loader: 'eslint-loader',
-      //   options: { fix : true }
-      // },      
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: { fix : true }
+      },      
       // {
       //     test: /\.(woff2?|ttf|eot|jpe?g|png|gif|svg)$/,
       //     use: [{loader: 'file-loader?name=img/[name].[ext]'}] 

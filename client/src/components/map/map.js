@@ -1,12 +1,13 @@
 // import $ from 'jquery';
 // import 'leaflet';
 // import 'leaflet/dist/leaflet.css';
-import styles from 'Stylesheets/app.css';
+import 'Stylesheets/app.css';
 
 import '../../../../node_modules/sidebar-v2/js/leaflet-sidebar.min';
 import '../../../../node_modules/sidebar-v2/css/leaflet-sidebar.min.css';
 import 'Stylesheets/sidebar.custom.css';
-import { getPointsSuccess, getTreeCount } from 'Data/getPoints';
+// import { getPointsSuccess, getTreeCount } from 'Data/getPoints';
+import { getPointsSuccess } from 'Data/getPoints';
 import { filterTrees } from 'Sidebar/treePane/filterTrees';
 import { trees } from 'Data/models/treetype';
 import { getPointSize } from 'Data/models/circumference';
@@ -50,7 +51,7 @@ const sidebar = L.control.sidebar('sidebar', { position: 'right' }).addTo(map);
 let geojsonLayer = L.geoJSON().addTo(map);
 const legend = L.control({ position: 'bottomleft' });
 
-legend.onAdd = function (map) {
+legend.onAdd = () => {
   const div = L.DomUtil.create('div', 'legend');
   // for (var i = 1; i < trees.length; i += 1) {
   //     div.innerHTML +=
@@ -113,7 +114,7 @@ function updateGeojsonLayer(geojson, mapViewPoint, zoom, keepZoomLevel) { // , f
 
 function calcRoughArea(bounds) {
   const coord = bounds.toBBoxString().split(',');
-  const roughArea = Math.abs((coord[0] - coord[2]) * (coord[1] - coord[3]));
+  return Math.abs((coord[0] - coord[2]) * (coord[1] - coord[3]));
 }
 
 function onEachFeature(feature, layer) {

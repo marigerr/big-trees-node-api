@@ -69,10 +69,12 @@ function addListeners() {
     $('.results').hide();
     $('.tree-table-div').hide();
     // statSelect == "top20" ? showTop20(regionSel, treetypeSel) :
-    statSelect == 'MostCommon' ? showMostCommon(regionSel, 'Alla') :
-      statSelect == 'AvgMax' ? showAvg(regionSel, treetypeSel) :
+/*eslint-disable*/
+    statSelect === 'MostCommon' ? showMostCommon(regionSel, 'Alla') :
+      statSelect === 'AvgMax' ? showAvg(regionSel, treetypeSel) :
         reset();
   });
+/*eslint-enable*/
   /* jshint ignore:end */
 }
 
@@ -83,15 +85,16 @@ function reset() {
   console.log('no choice made');
 }
 function updateDropdowns(region, circumference, treetype, exclude) {
-  if (circumference == 'Alla' && exclude != 'circumference-select') {
+  if (circumference === 'Alla' && exclude !== 'circumference-select') {
     getCircumferenceRange(region, circumference, treetype);
   }
-  if (treetype == 'Alla' && exclude != 'treetype-select') {
+  if (treetype === 'Alla' && exclude !== 'treetype-select') {
     getTrees(region, circumference, treetype);
-  } else if (treetype != 'Alla' && exclude != 'treetype-select') {
-
   }
-  if (region == 'Alla' && exclude != 'region-select') {
+  // else if (treetype !== 'Alla' && exclude !== 'treetype-select') {
+
+  // }
+  if (region === 'Alla' && exclude !== 'region-select') {
     getRegions(region, circumference, treetype);
   }
 }

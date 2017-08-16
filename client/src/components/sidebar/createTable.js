@@ -1,14 +1,14 @@
 import { map, setViewOpenPopup } from 'Map/map';
-import style from 'Stylesheets/table.css';
+import 'Stylesheets/table.css';
 
 function buildTable(tableId, response, includeGeo) {
   $('table').empty();
-  $.each(response, (index, value) => {
+  $.each(response, (index) => {
     response[index].Tradslag = response[index].properties.Tradslag.replace('-släktet', '');
     response[index].Stamomkret = response[index].properties.Stamomkret.toString();// + " cm";
     response[index].Lokalnamn = response[index].properties.Lokalnamn;
   });
-  const treeOrTrees = response.length > 1 ? 'trees' : 'tree';
+  // const treeOrTrees = response.length > 1 ? 'trees' : 'tree';
   // var title = `Largest ${treetypeSel == "Alla" ? "" : treetypeSel} ${treeOrTrees} in ${regionSel == "Alla" ? "JKPG Lan" : regionSel}`;
   // addTableCaption(".stat-table", title);
   createTableHeader(tableId, ['Tradslag', 'cm', 'Plats']);
