@@ -1,13 +1,13 @@
 // import $ from 'jquery';
 import lanstyrDefault from 'Data/lanstyrDefault';
-import { map, sidebar, geojsonLayer, updateGeojsonLayer, updateLegend } from 'Map/map';
+import { sidebar, updateGeojsonLayer, updateLegend } from 'Map/map';
 import makeAjaxCall from 'Data/makeAjaxCall';
 import convertToGeoJson from 'Data/convertToGeoJson';
-import getWhereCondition from 'Data/getWhereCond';
+// import getWhereCondition from 'Data/getWhereCond';
 import { removeDuplicateTrees } from 'Data/models/treetype';
 import { isMobile } from '../app';
-import { removeLocationMarker } from 'Sidebar/locatePane/locate';
-import { localStorageKeyExists, addToLocalStorage, getFromLocalStorage, storageAvailable } from 'Data/storeLocally';
+// import { removeLocationMarker } from 'Sidebar/locatePane/locate';
+import { addToLocalStorage } from 'Data/storeLocally';
 
 let hitsCounter = 1000;
 let geojson;
@@ -16,11 +16,10 @@ function getPointsSuccess(response, mapViewPoint, zoom, keepZoomLevel) {
   console.log('inside getpointssuccess');
   // console.log(response);
 
-
   hitsCounter = response.length;
   console.log(hitsCounter);
 
-  if (response.length == 500) {
+  if (response.length === 500) {
     $('.results').html('Visar första 500 resultat<br>Klicka på raden för att se mer info');
     $('.results').show();
   } else {
@@ -32,6 +31,7 @@ function getPointsSuccess(response, mapViewPoint, zoom, keepZoomLevel) {
   const treelist = result.trees;
   const noDupesTreeList = removeDuplicateTrees(treelist);
   // noDupesTreeList.sort(function(a,b) {return a.family.localeCompare(b.family);} ); 
+  // eslint-disable-next-line
   noDupesTreeList.sort((a, b) => ((a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0)));
   updateLegend(noDupesTreeList);
 
@@ -52,7 +52,7 @@ function getTreeCount() {
   data.outSR = null;
   data.orderByFields = null;
   data.returnCountOnly = true;
-  const success = function (response) {
+  const success = (response) => {
     addToLocalStorage('JkpgLanTreeCount', response.count);
   };
   makeAjaxCall(defaults.url, data, defaults.type, defaults.datatype, async, success, defaults.error);

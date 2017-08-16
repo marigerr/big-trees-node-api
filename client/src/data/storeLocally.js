@@ -1,7 +1,7 @@
 function storageAvailable(type) {
   try {
-    let storage = window[type],
-      x = '__storage_test__';
+    const storage = window[type];
+    const x = '__storage_test__';
     storage.setItem(x, x);
     storage.removeItem(x);
     return true;
@@ -12,7 +12,7 @@ function storageAvailable(type) {
 
 function addToLocalStorage(key, value) {
   console.log('adding to local storage');
-  	localStorage.setItem(key, JSON.stringify(value));
+  localStorage.setItem(key, JSON.stringify(value));
 }
 
 function getFromLocalStorage(key) {
