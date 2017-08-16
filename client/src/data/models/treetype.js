@@ -94,8 +94,8 @@ function removeDuplicateTrees(treeArray) {
   const finalFilteredTrees = [];
   let i,
     j;
-  for (i = 0; i < treeArray.length; i++) {
-    for (j = 0; j < masterTreeListArray.length; j++) {
+  for (i = 0; i < treeArray.length; i += 1) {
+    for (j = 0; j < masterTreeListArray.length; j += 1) {
       // if(trees[j].matchWith.test(treeArray[i])){
       if (treeArray[i].match(masterTreeListArray[j].matchWith)) {
         finalFilteredTrees.push(masterTreeListArray[j]);
@@ -106,7 +106,7 @@ function removeDuplicateTrees(treeArray) {
   finalFilteredTrees.sort((a, b) => ((a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0)));
 
   // delete all duplicates from the array
-  for (i = 0; i < finalFilteredTrees.length - 1; i++) {
+  for (i = 0; i < finalFilteredTrees.length - 1; i += 1) {
     if (finalFilteredTrees[i].id == finalFilteredTrees[i + 1].id) {
       finalFilteredTrees.splice(i, 1);
       i--;

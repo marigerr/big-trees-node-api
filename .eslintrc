@@ -4,14 +4,15 @@
     "ecmaFeatures": {
       "jsx": true
     }
-  },  
+  },
   "extends": [
     "eslint-config-airbnb-base",
     "plugin:react/recommended"
   ],
   "env": {
-	    "browser": true,
-	    "node": true
+    "browser": true,
+    "node": true,
+    "jquery": true
   },
   "settings": {
     "import/resolver": {
@@ -20,18 +21,34 @@
       }
     }
   },
+  "globals": {
+    "L": false
+  },
   "rules": {
-    "no-use-before-define": ["error", { "functions": false }],
-    "no-mixed-operators": [ "error", { "allowSamePrecedence": true }],
-    "max-len": ["off"],
+    "no-use-before-define": [
+      "error",
+      {
+        "functions": false
+      }
+    ],
+    "no-mixed-operators": [
+      "error",
+      {
+        "allowSamePrecedence": true
+      }
+    ],
+    "max-len": [
+      "off"
+    ],
     "no-console": "off",
     "react/prop-types": "off",
     "linebreak-style": "off",
-    "import/first":"off",
+    "import/first": "off",
     // "no-unused-vars": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "import/prefer-default-export": "off"
   },
   "plugins": [
     "react"
-  ]  
+  ]
 }

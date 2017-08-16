@@ -113,8 +113,8 @@ function groupTrees(treeFreqList) {
   groupedTrees.shift();
   let i,
     j;
-  for (i = 0; i < treeFreqList.length; i++) {
-    for (j = 0; j < groupedTrees.length; j++) {
+  for (i = 0; i < treeFreqList.length; i += 1) {
+    for (j = 0; j < groupedTrees.length; j += 1) {
       if (treeFreqList[i].attributes.Tradslag.match(groupedTrees[j].matchWith)) {
         if (groupedTrees[j].total === undefined) {
           groupedTrees[j].total = 0;

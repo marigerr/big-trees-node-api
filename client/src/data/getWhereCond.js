@@ -8,8 +8,7 @@ export default function getWhereCondition(regionSel = 'Alla', circumferenceSel =
   const kommunCond = getRegionQueryText(regionSel);
   const stamomkretCond = getCircumferenceQueryText(circumferenceSel);
   const tradslagCond = getTreetypeQueryText(treetypeSel);
-  let whereQuery;
-  whereQuery = [
+  const whereQuery = [
     kommunCond,
     tradslagCond,
     stamomkretCond,

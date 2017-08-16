@@ -52,7 +52,7 @@ const legend = L.control({ position: 'bottomleft' });
 
 legend.onAdd = function (map) {
   const div = L.DomUtil.create('div', 'legend');
-  // for (var i = 1; i < trees.length; i++) {
+  // for (var i = 1; i < trees.length; i += 1) {
   //     div.innerHTML +=
   //         '<i style="background:' + getColor(trees[i].id) + '"></i> ' + trees[i].id + '</br>';
   // }
@@ -171,7 +171,7 @@ function getColor(treeType) {
 function updateLegend(filteredTrees) {
   $('.legend.leaflet-control').empty();
   let newLegendContent = '';
-  for (let i = 0; i < filteredTrees.length; i++) {
+  for (let i = 0; i < filteredTrees.length; i += 1) {
     if (filteredTrees[i].id != 'Alla') {
       newLegendContent += `<i style="background:${getColor(filteredTrees[i].id)}"></i> ${filteredTrees[i].id}</br>`;
     }

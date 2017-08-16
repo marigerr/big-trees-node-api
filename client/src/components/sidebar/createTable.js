@@ -49,7 +49,7 @@ function addTableData(tableId, array, columns, includeGeo, pagination) {
   // console.log(array);
 
   let row$;
-  for (let i = 0; i < arrayLength; i++) {
+  for (let i = 0; i < arrayLength; i += 1) {
     if (includeGeo) {
       const lat = array[i].geometry.coordinates[1].toString();
       const lng = array[i].geometry.coordinates[0].toString();
@@ -57,7 +57,7 @@ function addTableData(tableId, array, columns, includeGeo, pagination) {
     } else {
       row$ = $('<tr/>');
     }
-    for (let colIndex = 0; colIndex < columns.length; colIndex++) {
+    for (let colIndex = 0; colIndex < columns.length; colIndex += 1) {
       row$.append($('<td/>').html(array[i][columns[colIndex]]));
     }
     $(tableId).append(row$);

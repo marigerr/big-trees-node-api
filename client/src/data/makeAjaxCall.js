@@ -1,12 +1,12 @@
 // import $ from 'jquery';
 
-const defaultSuccess = function (response) {
+function defaultSuccess(response) {
   console.log(response);
-};
+}
 
-const defaultError = function (xhr) {
+function defaultError(xhr) {
   console.log(xhr.statusText);
-};
+}
 
 export default function makeAjaxCall(url, success = defaultSuccess, error = defaultError) {
 // export default function makeAjaxCall(url, data, type ="GET", datatype = 'json', async = true,  success = defaultSuccess, error = defaultError, loadingScreen = false) {  
