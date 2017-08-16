@@ -1,5 +1,5 @@
 export default function convertToGeoJson(features) {
-  console.log(features);
+  // console.log(features);
   
     var trees = [];
     var newGeoJson = {

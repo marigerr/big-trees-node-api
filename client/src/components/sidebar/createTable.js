@@ -35,7 +35,7 @@ function addRowClickHandler() {
         var lat = $(this).data().lat;
         var lng = $(this).data().lng;
         var currentZoom = map.getZoom();
-        console.log(currentZoom);
+        // console.log(currentZoom);
         if (currentZoom < 10) {
             setViewOpenPopup([lat, lng], 9);
         } else {
@@ -46,7 +46,7 @@ function addRowClickHandler() {
 
 function addTableData(tableId, array, columns, includeGeo, pagination) {
     var arrayLength = array.length;
-    console.log(array);
+    // console.log(array);
     
     var row$;
     for (var i = 0; i < arrayLength; i++) {

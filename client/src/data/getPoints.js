@@ -14,7 +14,7 @@ var geojson;
 
 function getPointsSuccess(response, mapViewPoint, zoom, keepZoomLevel) {
     console.log("inside getpointssuccess");
-    console.log(response);
+    // console.log(response);
     
     
     hitsCounter = response.length;

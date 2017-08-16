@@ -20,8 +20,7 @@ var TreeSchema = new Schema({
   geometry: {
     type: {type: String},
     coordinates: []
-  },
-  bbox: [Number, Number, Number, Number]
+  }
 });
 
 module.exports = mongoose.model('Trees', TreeSchema);

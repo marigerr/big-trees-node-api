@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 exports.list_all_trees = function (req, res) {
   Trees.find({})
     .limit(500)
+    .sort({"properties.Stamomkret": -1})
     .exec( function (err, tree) {
       if (err)
         res.send(err);
