@@ -1,16 +1,16 @@
-//import $ from 'jquery';
-import makeAjaxCall from 'Data/makeAjaxCall.js';
-import lanstyrDefault from 'Data/lanstyrDefault.js';
-import getWhereCondition from 'Data/getWhereCond.js';
-import { getPoints, getPointsSuccess } from 'Data/getPoints.js';
-import {trees} from 'Data/models/treetype.js';
-import {addTableCaption, createTableHeader, addTableData} from 'Sidebar/createTable.js';
+// import $ from 'jquery';
+import makeAjaxCall from 'Data/makeAjaxCall';
+import lanstyrDefault from 'Data/lanstyrDefault';
+import getWhereCondition from 'Data/getWhereCond';
+import { getPoints, getPointsSuccess } from 'Data/getPoints';
+import { trees } from 'Data/models/treetype';
+import { addTableCaption, createTableHeader, addTableData } from 'Sidebar/createTable';
 
-var stats = [
-    { id: "", label: "Välj Statistik" },
-    // { id: "top20", label: "Largest Trees" },
-    { id: "MostCommon", label: "Träd antal" },
-    { id: "AvgMax", label: "Medel Omkrets" }
+const stats = [
+  { id: '', label: 'Välj Statistik' },
+  // { id: "top20", label: "Largest Trees" },
+  { id: 'MostCommon', label: 'Träd antal' },
+  { id: 'AvgMax', label: 'Medel Omkrets' },
 ];
 
 // function showTop20(regionSel, treetypeSel) {
@@ -38,102 +38,95 @@ var stats = [
 // }
 
 function showMostCommon(regionSel, treetypeSel) {
-    $(".statpaneSelectTreeDiv").hide();
-    $("select.statpaneSelect.treetype-select").prop('selectedIndex', 0);
-    var whereQuery = getWhereCondition(regionSel, null, treetypeSel);
-    var outStats = JSON.stringify([
-        {
-            "statisticType": "count",
-            "onStatisticField": "Tradslag",
-            "outStatisticFieldName": "TradslagCounts"
-        }
-    ]);
-    var defaults = lanstyrDefault();
-    var success = function(response){
-        var treeFreqList = response.features;
-        var groupedTrees = groupTrees(treeFreqList);
-        groupedTrees.sort(function(a, b) { 
-            return b.total - a.total;
-        });
-        var title = `Tree totals in ${regionSel == "Alla" ? "Jönköping Lan" : regionSel}`;
-        addTableCaption(".stat-table", title);
-        createTableHeader(".stat-table", ["Tree Type", "Total"]);
-        addTableData(".stat-table", groupedTrees,["label", "total"]);
-        var sumTotal = 0;
-        $.each(groupedTrees, function(index, value){
-            sumTotal += groupedTrees[index].total; 
-        });
-        var sumRow$ = $('<tr class="boldRow"/>');
-        sumRow$.append($('<td/>').html("Total"));
-        sumRow$.append($('<td/>').html(sumTotal));
-        $(".stat-table").append(sumRow$);
-        // getPoints(regionSel, "Alla", treeFreqList[0].attributes.Tradslag);
-    };
-    
-    var data = defaults.data;
-    data.where = whereQuery;
-    data.outStatistics = outStats;
-    data.returnGeometry = false;
-    data.outSR = null;
-    data.orderByFields = null;
-    data.groupByFieldsForStatistics='Tradslag';
+  $('.statpaneSelectTreeDiv').hide();
+  $('select.statpaneSelect.treetype-select').prop('selectedIndex', 0);
+  const whereQuery = getWhereCondition(regionSel, null, treetypeSel);
+  const outStats = JSON.stringify([
+    {
+      statisticType: 'count',
+      onStatisticField: 'Tradslag',
+      outStatisticFieldName: 'TradslagCounts',
+    },
+  ]);
+  const defaults = lanstyrDefault();
+  const success = function (response) {
+    const treeFreqList = response.features;
+    const groupedTrees = groupTrees(treeFreqList);
+    groupedTrees.sort((a, b) => b.total - a.total);
+    const title = `Tree totals in ${regionSel == 'Alla' ? 'Jönköping Lan' : regionSel}`;
+    addTableCaption('.stat-table', title);
+    createTableHeader('.stat-table', ['Tree Type', 'Total']);
+    addTableData('.stat-table', groupedTrees, ['label', 'total']);
+    let sumTotal = 0;
+    $.each(groupedTrees, (index, value) => {
+      sumTotal += groupedTrees[index].total;
+    });
+    const sumRow$ = $('<tr class="boldRow"/>');
+    sumRow$.append($('<td/>').html('Total'));
+    sumRow$.append($('<td/>').html(sumTotal));
+    $('.stat-table').append(sumRow$);
+    // getPoints(regionSel, "Alla", treeFreqList[0].attributes.Tradslag);
+  };
 
-    makeAjaxCall(defaults.url, data, defaults.type, defaults.datatyp, defaults.async, success, defaults.error);
+  const data = defaults.data;
+  data.where = whereQuery;
+  data.outStatistics = outStats;
+  data.returnGeometry = false;
+  data.outSR = null;
+  data.orderByFields = null;
+  data.groupByFieldsForStatistics = 'Tradslag';
+
+  makeAjaxCall(defaults.url, data, defaults.type, defaults.datatyp, defaults.async, success, defaults.error);
 }
 
 function showAvg(regionSel, treetypeSel) {
-    $(".statpaneSelectTreeDiv").show();
+  $('.statpaneSelectTreeDiv').show();
 
-    var whereQuery = getWhereCondition(regionSel, "Alla", treetypeSel);
-    var defaults = lanstyrDefault();
-    var success = function(response){ 
-        var dataObjArray = [{avgStamomkret: response.features[0].attributes.avgStamomkret}];
-        addTableCaption(".stat-table", `${treetypeSel == "Alla" ? "" : treetypeSel} ${regionSel == "Alla" ? "JKPG Lan" : regionSel}`);
-        
-        createTableHeader(".stat-table", ["Average Circumference"]);
-        addTableData(".stat-table", dataObjArray, ["avgStamomkret"], false, false);
-    };
-    var outStats = JSON.stringify([
-        {
-            "statisticType": "avg",
-            "onStatisticField": "Stamomkret",
-            "outStatisticFieldName": "avgStamomkret"
-        }        
-    ]);    
-    var data = defaults.data;
-    data.where = whereQuery;
-    data.outStatistics = outStats;
-    data.returnGeometry = false;
-    data.outSR = null;
-    data.orderByFields = null;
+  const whereQuery = getWhereCondition(regionSel, 'Alla', treetypeSel);
+  const defaults = lanstyrDefault();
+  const success = function (response) {
+    const dataObjArray = [{ avgStamomkret: response.features[0].attributes.avgStamomkret }];
+    addTableCaption('.stat-table', `${treetypeSel == 'Alla' ? '' : treetypeSel} ${regionSel == 'Alla' ? 'JKPG Lan' : regionSel}`);
 
-    makeAjaxCall(defaults.url, data, defaults.type, defaults.datatyp, defaults.async, success, defaults.error);
+    createTableHeader('.stat-table', ['Average Circumference']);
+    addTableData('.stat-table', dataObjArray, ['avgStamomkret'], false, false);
+  };
+  const outStats = JSON.stringify([
+    {
+      statisticType: 'avg',
+      onStatisticField: 'Stamomkret',
+      outStatisticFieldName: 'avgStamomkret',
+    },
+  ]);
+  const data = defaults.data;
+  data.where = whereQuery;
+  data.outStatistics = outStats;
+  data.returnGeometry = false;
+  data.outSR = null;
+  data.orderByFields = null;
+
+  makeAjaxCall(defaults.url, data, defaults.type, defaults.datatyp, defaults.async, success, defaults.error);
 }
-     
-function groupTrees(treeFreqList){
-    var groupedTrees = trees();
-    groupedTrees.shift();
-    var i, j;
-    for (i = 0; i < treeFreqList.length; i++) {  
-        for (j = 0; j < groupedTrees.length; j++) {          
-            if(treeFreqList[i].attributes.Tradslag.match(groupedTrees[j].matchWith)){
-                if (groupedTrees[j].total === undefined) {
-                    groupedTrees[j].total = 0;
-                }
-                groupedTrees[j].total += treeFreqList[i].attributes.TradslagCounts;
-                break;    
-            }    
-        }        
-    }       
-    groupedTrees = $.grep(groupedTrees, function(tree){
-        return tree.total !== undefined;
-    });
-    return groupedTrees;
+
+function groupTrees(treeFreqList) {
+  let groupedTrees = trees();
+  groupedTrees.shift();
+  let i,
+    j;
+  for (i = 0; i < treeFreqList.length; i++) {
+    for (j = 0; j < groupedTrees.length; j++) {
+      if (treeFreqList[i].attributes.Tradslag.match(groupedTrees[j].matchWith)) {
+        if (groupedTrees[j].total === undefined) {
+          groupedTrees[j].total = 0;
+        }
+        groupedTrees[j].total += treeFreqList[i].attributes.TradslagCounts;
+        break;
+      }
+    }
+  }
+  groupedTrees = $.grep(groupedTrees, tree => tree.total !== undefined);
+  return groupedTrees;
 }
 
 export { showMostCommon, showAvg, stats, addTableCaption, createTableHeader, addTableData };
-
-
-
-
 
