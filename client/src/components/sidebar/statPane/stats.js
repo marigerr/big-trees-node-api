@@ -2,7 +2,7 @@
 import makeAjaxCall from 'Data/makeAjaxCall';
 import lanstyrDefault from 'Data/lanstyrDefault';
 import getWhereCondition from 'Data/getWhereCond';
-import { getPoints, getPointsSuccess } from 'Data/getPoints';
+// import { getPoints, getPointsSuccess } from 'Data/getPoints';
 import { trees } from 'Data/models/treetype';
 import { addTableCaption, createTableHeader, addTableData } from 'Sidebar/createTable';
 
@@ -49,16 +49,16 @@ function showMostCommon(regionSel, treetypeSel) {
     },
   ]);
   const defaults = lanstyrDefault();
-  const success = function (response) {
+  const success = (response) => {
     const treeFreqList = response.features;
     const groupedTrees = groupTrees(treeFreqList);
     groupedTrees.sort((a, b) => b.total - a.total);
-    const title = `Tree totals in ${regionSel == 'Alla' ? 'Jönköping Lan' : regionSel}`;
+    const title = `Tree totals in ${regionSel === 'Alla' ? 'Jönköping Lan' : regionSel}`;
     addTableCaption('.stat-table', title);
     createTableHeader('.stat-table', ['Tree Type', 'Total']);
     addTableData('.stat-table', groupedTrees, ['label', 'total']);
     let sumTotal = 0;
-    $.each(groupedTrees, (index, value) => {
+    $.each(groupedTrees, (index) => {
       sumTotal += groupedTrees[index].total;
     });
     const sumRow$ = $('<tr class="boldRow"/>');
@@ -84,9 +84,9 @@ function showAvg(regionSel, treetypeSel) {
 
   const whereQuery = getWhereCondition(regionSel, 'Alla', treetypeSel);
   const defaults = lanstyrDefault();
-  const success = function (response) {
+  const success = (response) => {
     const dataObjArray = [{ avgStamomkret: response.features[0].attributes.avgStamomkret }];
-    addTableCaption('.stat-table', `${treetypeSel == 'Alla' ? '' : treetypeSel} ${regionSel == 'Alla' ? 'JKPG Lan' : regionSel}`);
+    addTableCaption('.stat-table', `${treetypeSel === 'Alla' ? '' : treetypeSel} ${regionSel === 'Alla' ? 'JKPG Lan' : regionSel}`);
 
     createTableHeader('.stat-table', ['Average Circumference']);
     addTableData('.stat-table', dataObjArray, ['avgStamomkret'], false, false);
@@ -111,8 +111,8 @@ function showAvg(regionSel, treetypeSel) {
 function groupTrees(treeFreqList) {
   let groupedTrees = trees();
   groupedTrees.shift();
-  let i,
-    j;
+  let i;
+  let j;
   for (i = 0; i < treeFreqList.length; i += 1) {
     for (j = 0; j < groupedTrees.length; j += 1) {
       if (treeFreqList[i].attributes.Tradslag.match(groupedTrees[j].matchWith)) {

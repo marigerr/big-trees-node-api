@@ -49,7 +49,7 @@ function findLocationWithGoogleGeolocation() {
   let data;
   const datatype = 'json';
   const async = true;
-  success = (response) => {
+  const success = (response) => {
     // console.log(response);
     const lat = response.location.lat;
     const lng = response.location.lng;
@@ -63,16 +63,16 @@ function findLocationWithGoogleGeolocation() {
       sidebar.close();
       console.log(isMobile);
     }
-  }
-  error = (xhr) => {
+  };
+  const error = (xhr) => {
     console.log(xhr.statusText);
-  }
+  };
 
   makeAjaxCall(url, data, type, datatype, async, success, error);
 }
 
 function getSearchArea(lat, lng) {
-// use leaflet toBounds  toBounds(<Number> sizeInMeters)	LatLngBounds	
+// use leaflet toBounds  toBounds(<Number> sizeInMeters) LatLngBounds
 // Returns a new LatLngBounds object in which each boundary is sizeInMeters/2 meters apart from the LatLng.
   return L.latLng(lat, lng).toBounds(4000).toBBoxString(); // search area 4000 meters
 }

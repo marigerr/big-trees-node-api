@@ -14,6 +14,8 @@ const circumference = [
 ];
 
 // TO DO --> look into if ok to use Eval() in this circumstance
+// function getPointSize() {
+  /*eslint-disable*/
 function getPointSize(Stamomkret) {
   /* jshint ignore:start */
   return eval(circumference[1].range) ? circumference[1].pointsize :
@@ -26,14 +28,15 @@ function getPointSize(Stamomkret) {
 }
 
 function getCircumferenceQueryText(circumferenceSelection) {
-  return circumferenceSelection == circumference[0].id ? `(${circumference[0].querytext})` :
-    circumferenceSelection == circumference[1].id ? `(${circumference[1].querytext})` :
-      circumferenceSelection == circumference[2].id ? `(${circumference[2].querytext})` :
-        circumferenceSelection == circumference[3].id ? `(${circumference[3].querytext})` :
-          circumferenceSelection == circumference[4].id ? `(${circumference[4].querytext})` :
-            circumferenceSelection == circumference[5].id ? `(${circumference[5].querytext})` :
+  return circumferenceSelection === circumference[0].id ? `(${circumference[0].querytext})` :
+    circumferenceSelection === circumference[1].id ? `(${circumference[1].querytext})` :
+      circumferenceSelection === circumference[2].id ? `(${circumference[2].querytext})` :
+        circumferenceSelection === circumference[3].id ? `(${circumference[3].querytext})` :
+          circumferenceSelection === circumference[4].id ? `(${circumference[4].querytext})` :
+            circumferenceSelection === circumference[5].id ? `(${circumference[5].querytext})` :
               '(Stamomkret > 0)';
 }
+  /*eslint-enable*/
 
 function getCircumferenceRange(regionSel, circumferenceSel = 100, treetypeSel = 'Alla') {
   const outStats = JSON.stringify([{
@@ -62,20 +65,23 @@ function getCircumferenceRange(regionSel, circumferenceSel = 100, treetypeSel = 
   makeAjaxCall(defaults.url, data, defaults.type, defaults.datatyp, defaults.async, success, defaults.error);
 }
 
-var getCircumSuccess = function (response) {
+/*eslint-disable*/
+// function getCircumSuccess() {
+function getCircumSuccess(response) {
   const Stamomkret = response.features[0].attributes.maxStamomkret;
   let filteredCircumference = [];
   let i = circumference.length - 1;
-  for (i; i > 0; i--) {
+  for (i; i > 0; i -= 1) {
     /* jshint ignore:start */
     if (eval(circumference[i].range)) {
       filteredCircumference = circumference.slice(0, i + 1);
       break;
     }
+    /*eslint-enable*/
     /* jshint ignore:end */          
   }
   createSelect('.filterSelect.circumference-select', filteredCircumference);
-};
+}
 
 export { circumference, getCircumferenceQueryText, getCircumferenceRange, getPointSize };
 
